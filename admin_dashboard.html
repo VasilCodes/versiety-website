@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Versiety</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body style="padding-top: 80px;">
+    <nav>
+        <div class="logo">VERSIETY ADMIN</div>
+        <div class="nav-links">
+            <span id="user-display" style="color: var(--text-dim); font-size: 0.9rem;"></span>
+            <button id="logout-btn" class="btn btn-login">Logout</button>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <h1 style="margin-bottom: 2rem; border-left: 4px solid var(--primary); padding-left: 1rem;">Admin Control Center</h1>
+        
+        <div class="panels-container">
+            <div class="panel-item">
+                <div class="big-panel">
+                    <i class="fas fa-users" style="color: var(--primary);"></i>
+                    <h3>User Base</h3>
+                    <div class="panel-content">
+                        <p>Total Registered: <span id="total-users">--</span></p>
+                        <button id="preview-user-btn" class="btn btn-login big-btn">PREVIEW AS USER</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel-item">
+                <div class="big-panel">
+                    <i class="fas fa-shield-alt" style="color: #4ade80;"></i>
+                    <h3>Cheat Status</h3>
+                    <div class="panel-content">
+                        <p id="cheat-status-text" style="color: #4ade80;">Status: UNDETECTED</p>
+                        <button id="update-status-btn" class="auth-btn big-btn" style="margin-top: 1rem;">UPDATE STATUS</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel-item">
+                <div class="big-panel">
+                    <i class="fas fa-key" style="color: var(--accent);"></i>
+                    <h3>License Center</h3>
+                    <div class="panel-content">
+                        <p>Active Keys: <span id="active-keys-count">0</span></p>
+                        <button id="generate-keys-btn" class="btn btn-login big-btn" style="margin-top: 1rem;">GENERATE NEW KEY</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-item">
+                <div class="big-panel">
+                    <i class="fas fa-newspaper" style="color: var(--secondary);"></i>
+                    <h3>Latest News</h3>
+                    <div class="panel-content">
+                        <p style="color: var(--accent);">[FIX] Menu/Game end crash resolved.</p>
+                        <p style="color: var(--text-dim); font-size: 0.8rem; margin-top: 1rem;">March 12, 2026</p>
+                        <a href="news.html" class="btn btn-signup big-btn" style="width: 100%; text-decoration: none; display: block; text-align: center;">VIEW ALL NEWS</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- License Keys Section -->
+        <div id="keys-list-section" style="margin-top: 4rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2>License Keys Management</h2>
+                <p style="color: var(--text-dim); font-size: 0.9rem;">Hover to reveal, Click for details</p>
+            </div>
+            <div id="keys-container" class="license-key-list">
+                <!-- Keys populated by JS -->
+                <p style="color: var(--text-dim);">Loading keys...</p>
+            </div>
+        </div>
+
+        <!-- User Database Section -->
+        <div id="user-list-section" style="margin-top: 4rem;">
+            <h2 style="margin-bottom: 1.5rem;">User Database</h2>
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Subscription</th>
+                            <th>Expiry Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user-table-body">
+                        <!-- Users populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Information Preview Modal -->
+    <div id="preview-modal" class="modal">
+        <div class="modal-content">
+            <i class="fas fa-times close-modal" id="close-preview"></i>
+            <h2 style="margin-bottom: 1.5rem; text-align: center;">User View Preview</h2>
+            
+            <div class="feature-card" style="margin-bottom: 1.5rem; background: var(--bg-dark);">
+                <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Subscription Status</h3>
+                <p id="sub-status" style="font-size: 0.95rem;">Checking...</p>
+            </div>
+
+            <button id="download-btn" class="btn btn-signup" style="width: 100%; padding: 1rem;">
+                <i class="fas fa-download" style="margin-right: 0.5rem;"></i> Download Client
+            </button>
+
+            <div id="loader-container" class="loader-container">
+                <div class="loader-status">Downloading Versiety Client... <span id="progress-percent">0%</span></div>
+                <div class="loader-bar">
+                    <div id="loader-progress" class="loader-progress"></div>
+                </div>
+                <div style="font-size: 0.75rem; color: #64748b;">v1.4.2 | 12.4 MB</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Generation Modal -->
+    <div id="key-gen-modal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <i class="fas fa-times close-modal" id="close-key-gen"></i>
+            <h2 style="margin-bottom: 2rem; text-align: center;">Generate License Key</h2>
+            
+            <div class="shadow-input-container">
+                <label style="display: block; margin-bottom: 0.8rem; color: var(--text-dim); font-size: 0.9rem;">KEY IDENTIFIER</label>
+                <input type="text" id="new-key-id" class="masked-key-input" placeholder="ABCDE-1234-XYZ">
+            </div>
+
+            <div class="form-group" style="margin-top: 1rem;">
+                <label>DURATION (DAYS)</label>
+                <input type="number" id="new-key-days" class="form-group input days-input" value="30" min="1">
+            </div>
+
+            <button id="confirm-gen-btn" class="auth-btn" style="margin-top: 2rem;">GENERATE KEY</button>
+        </div>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div id="edit-user-modal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <i class="fas fa-times close-modal" id="close-edit-user"></i>
+            <h2 style="margin-bottom: 2rem; text-align: center;">Edit User Profile</h2>
+            
+            <input type="hidden" id="edit-user-uid">
+            
+            <div class="form-group">
+                <label>USERNAME</label>
+                <input type="text" id="edit-user-username" class="form-group input">
+            </div>
+            
+            <div class="form-group" style="margin-top: 1rem;">
+                <label>EMAIL</label>
+                <input type="email" id="edit-user-email" class="form-group input">
+            </div>
+
+            <div class="form-group" style="margin-top: 1rem;">
+                <label>ROLE</label>
+                <select id="edit-user-role" class="form-group input" style="background: var(--bg-dark); color: white;">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+
+            <div class="form-group" style="margin-top: 1rem;">
+                <label>HARDWARE ID (HWID)</label>
+                <input type="text" id="edit-user-hwid" class="form-group input" placeholder="No HWID linked">
+            </div>
+
+            <div class="form-group" style="margin-top: 1rem;">
+                <label>EXPIRY DATE</label>
+                <input type="date" id="edit-user-expiry" class="form-group input">
+            </div>
+
+            <button id="save-user-btn" class="auth-btn" style="margin-top: 2rem;">SAVE CHANGES</button>
+        </div>
+    </div>
+
+    <!-- Edit Key Modal -->
+    <div id="edit-key-modal" class="modal">
+        <div class="modal-content" style="max-width: 450px;">
+            <i class="fas fa-times close-modal" id="close-edit-key"></i>
+            <h2 style="margin-bottom: 2rem; text-align: center;">Update License Key</h2>
+            
+            <input type="hidden" id="edit-key-id">
+            
+            <div class="form-group">
+                <label>DURATION (DAYS)</label>
+                <input type="number" id="edit-key-duration" class="form-group input">
+            </div>
+
+            <div class="form-group" style="margin-top: 1.5rem; display: flex; align-items: center; gap: 1rem; cursor: pointer;">
+                <input type="checkbox" id="edit-key-isUsed" style="width: 20px; height: 20px; accent-color: var(--primary);">
+                <label for="edit-key-isUsed" style="margin-bottom: 0;">Mark as Activated (Used)</label>
+            </div>
+
+            <button id="save-key-btn" class="auth-btn" style="margin-top: 2.5rem;">UPDATE KEY</button>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
