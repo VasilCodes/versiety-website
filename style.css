@@ -291,7 +291,8 @@ nav {
 
 .panels-container {
     display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
     gap: 2rem;
     padding: 1rem 0;
     width: 100%;
