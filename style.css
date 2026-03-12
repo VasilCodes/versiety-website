@@ -284,7 +284,7 @@ nav {
 
 /* Dashboard Layout Improvements */
 .dashboard-container {
-    padding: 4rem 10%;
+    padding: 2rem 5%; /* Reduced vertical padding and side margins */
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -304,11 +304,11 @@ nav {
 
 .big-panel {
     background: var(--bg-card);
-    padding: 3rem 2rem;
-    border-radius: 24px;
+    padding: 2rem 1.5rem; /* Reduced padding */
+    border-radius: 20px;
     border: 1px solid var(--glass-border);
     transition: var(--transition);
-    min-height: 400px;
+    min-height: 320px; /* Smaller min-height */
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -336,24 +336,24 @@ nav {
 
 .big-panel:hover {
     border-color: var(--primary);
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 .big-panel h3 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.5rem; /* Smaller headings */
+    margin-bottom: 1rem;
 }
 
 .big-panel p {
-    font-size: 1.2rem;
+    font-size: 1rem; /* Smaller text */
     color: var(--text-dim);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .big-panel i {
-    font-size: 3.5rem;
-    margin-bottom: 2rem;
+    font-size: 2.5rem; /* Smaller icons */
+    margin-bottom: 1.5rem;
 }
 
 .panel-content {
@@ -362,14 +362,15 @@ nav {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
 .big-btn {
     width: 100%;
-    padding: 1.2rem;
-    font-size: 1.1rem;
-    border-radius: 12px;
-    margin-top: auto; /* Push to bottom */
+    padding: 0.8rem; /* Smaller buttons */
+    font-size: 0.95rem; /* Smaller button font */
+    border-radius: 10px;
+    margin-top: auto; 
 }
 
 /* Modal Styles */
